@@ -46,7 +46,7 @@
         <div class="outer">
             <a href="/" id="logo">
                 <i class="logo"></i>
-                <span class="site-title">FTAndy</span>
+                <!-- <span class="site-title">FTAndy</span> -->
             </a>
             <nav id="main-nav">
                 
@@ -152,7 +152,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                26
+                27
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -193,6 +193,150 @@
 
             
             <section id="main">
+    <article id="post-mimi-promise" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<a href="/2016/10/30/mimi-promise/" itemprop="url">
+            <img src="/assets/images/promisesa-was-born.jpg" class="article-banner" />
+        </a>
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/10/30/mimi-promise/">写一个符合 Promises/A+ 规范并可配合 ES7 async/await 使用的 Promise</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/10/30/mimi-promise/">
+            <time datetime="2016-10-30T14:11:46.000Z" itemprop="datePublished">2016-10-30</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/javascript/">javascript</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p><a href="https://www.ftandy.com/2016/10/30/mimi-promise/">原文地址</a></p>
+<hr>
+<p>从历史的进程来看，Javascript 异步操作的基本单位已经从 callback 转换到 Promise。除了在特殊场景使用 <a href="https://github.com/request/request#streaming">stream</a>，<a href="https://github.com/Reactive-Extensions/RxJS">RxJs</a> 等更加抽象和高级的异步数据获取和操作流程方式外，现在几乎任何成熟的异步操作库，都会实现或者引用 Promise 作为 API 的返回单位。主流的 Javascript 引擎也基本原生实现了 Promise。</p>
+<p>在 Promise 远未流行以前，Javascript 的异步操作基本都在使用以 callback 为主的异步接口。鼠标键盘事件，页面渲染，网络请求，文件请求等等异步操作的回调函数都是用 callback 来处理。随着异步使用场景范围的扩大，出现了大量工程化和富应用的的交互和操作，使得应用不足以用 callback 来面对愈加复杂的需求，慢慢出现了许多优雅和先进的异步解决方案：<code>EventEmitter</code>，<code>Promise</code>，<code>Web Worker</code>，<code>Generator</code>，<code>Async/Await</code>。</p>
+<p>目前 Javascript 在客户端和服务器端的应用当中，只有 Promise 被广泛接受并使用。追根溯源，Promise 概念的提出是在 1976 年，Javascript 最早的 Promise 实现是在 2007 年，到现在 2016 年，Promise/A+ 规范和 ECMAscript 规范提出的 API 也足够稳定。<code>then</code>, <code>reject</code>, <code>all</code>, <code>spread</code>, <code>race</code>, <code>finally</code> 都是工程师开发中经常用到的 Promise API。很多人刚接触 Promise 概念的时候看下 API，看几篇博客或者看几篇最佳实践就以为理解程度够了，但是对 Promise 内部的异步机制不明了，使得在开发过程中遇到不少坑或者懵逼。</p>
+<p>本文旨在让读者能深入了解 Promise 内部执行机制，熟悉和掌握 Promise 的操作流。如有兴趣，可以继续往下读。</p></p>
+            <p class="article-more-link">
+                <a href="/2016/10/30/mimi-promise/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <!-- <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://ftandy.com/2016/10/30/mimi-promise/" data-id="ciuwtzdkb001sd9snugnv4zmv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="https://ftandy.com/2016/10/30/mimi-promise/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/10/30/mimi-promise/">评论</a>
+    
+
+        </footer> -->
+    </div>
+    
+</article>
+
+
+
+
     <article id="post-2016-09-11-理解比特币原理" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -236,14 +380,14 @@
             </p>
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/09/11/2016-09-11-理解比特币原理/" data-id="ciufodofx001qw1sn6g7bm0hb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/09/11/2016-09-11-理解比特币原理/" data-id="ciuwtzdk9001qd9sn7ccpejkx" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -314,10 +458,11 @@
         <a href="https://ftandy.com/2016/09/11/2016-09-11-理解比特币原理/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/09/11/2016-09-11-理解比特币原理/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -376,14 +521,14 @@
             </p>
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/09/10/2016-09-10-论打电竞职业与互联网职业的相同/" data-id="ciufodofs001nw1snujpzk5tv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/09/10/2016-09-10-论打电竞职业与互联网职业的相同/" data-id="ciuwtzdk6001nd9snh7ru2h5o" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -454,10 +599,11 @@
         <a href="https://ftandy.com/2016/09/10/2016-09-10-论打电竞职业与互联网职业的相同/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/09/10/2016-09-10-论打电竞职业与互联网职业的相同/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -508,14 +654,14 @@
             </p>
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/05/15/2016-05-15-Sharedb-源码分析/" data-id="ciufodofq001lw1snymdqqxa0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/05/15/2016-05-15-Sharedb-源码分析/" data-id="ciuwtzdk6001ld9snt28rl68g" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -586,10 +732,11 @@
         <a href="https://ftandy.com/2016/05/15/2016-05-15-Sharedb-源码分析/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/05/15/2016-05-15-Sharedb-源码分析/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -637,17 +784,23 @@
 <p>Sound sleep by night; study and ease<br>Together mix’d; sweet recreation,<br>And innocence, which most does please,<br>With meditation.</p>
 <p>Thus let me live, unseen, unknown;<br>Thus unlamented let me die;<br>Steal from the world, and not a stone<br>Tell where I lye.</p>
 <footer><strong>Alexander Pope </strong><cite>Ode on Solitude</cite></footer></blockquote>
+<blockquote><p>耕作着祖辈留下的几亩土地，呼吸着土地上自然的空气<br>这样的人才能称为快乐的人</p>
+<p>牛产牛奶，地长面包<br>羊毛身上穿<br>树阴为他留，冬天有柴烧</p>
+<p>真是太幸福了<br>无忧无虑地过着轻松，快活的日子<br>身体健康，头脑清晰，悄悄过着小日子</p>
+<p>睡觉打着鼾，闲时读些书<br>张弛有度，酣畅淋漓<br>天真时感到快乐，快乐时又带着沉思</p>
+<p>无名，无声地活着<br>没有遗憾地死去<br>不留下任何痕迹，悄悄离开这个世界</p>
+<footer><strong>Alexander Pope </strong><cite>Ode on Solitude</cite></footer></blockquote>
 
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/05/14/2016-05-14-Ode-on-Solitude/" data-id="ciufodofj001gw1sng1eo8yxr" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/05/14/2016-05-14-Ode-on-Solitude/" data-id="ciuwtzdk4001id9sn3ha8pfvb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -718,10 +871,11 @@
         <a href="https://ftandy.com/2016/05/14/2016-05-14-Ode-on-Solitude/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/05/14/2016-05-14-Ode-on-Solitude/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -778,14 +932,14 @@
             </p>
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/03/29/2016-03-29-HTTPS/" data-id="ciufodofn001iw1snjlr7y0up" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/03/29/2016-03-29-HTTPS/" data-id="ciuwtzdk2001gd9sngpe4a9y0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -856,10 +1010,11 @@
         <a href="https://ftandy.com/2016/03/29/2016-03-29-HTTPS/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/03/29/2016-03-29-HTTPS/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -916,14 +1071,14 @@
             </p>
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/03/28/2016-03-28-decadent/" data-id="ciufodofg001dw1snggi7w9vk" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/03/28/2016-03-28-decadent/" data-id="ciuwtzdk1001dd9snj3cth6ru" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -994,10 +1149,11 @@
         <a href="https://ftandy.com/2016/03/28/2016-03-28-decadent/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/03/28/2016-03-28-decadent/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -1054,14 +1210,14 @@
             </p>
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/02/20/2016-02-20-2015/" data-id="ciufodofe001bw1snmypxln8j" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/02/20/2016-02-20-2015/" data-id="ciuwtzdk1001bd9snlmbgg7qp" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1132,10 +1288,11 @@
         <a href="https://ftandy.com/2016/02/20/2016-02-20-2015/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2016/02/20/2016-02-20-2015/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -1194,14 +1351,14 @@
             </p>
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2015/09/27/2015-09-27-morty/" data-id="ciufodofc0018w1sntw4v7qt8" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2015/09/27/2015-09-27-morty/" data-id="ciuwtzdjz0018d9sn9qjtbuux" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1272,10 +1429,11 @@
         <a href="https://ftandy.com/2015/09/27/2015-09-27-morty/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2015/09/27/2015-09-27-morty/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
+
 
 
 
@@ -1330,14 +1488,14 @@
             
         
         </div>
-        <footer class="article-footer">
+        <!-- <footer class="article-footer">
             <div class="share-container">
 
 
 
 </div>
 
-    <a data-url="https://ftandy.com/2015/09/26/2015-09-26-brainfuck-language/" data-id="ciufodofa0016w1sn87d7g985" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2015/09/26/2015-09-26-brainfuck-language/" data-id="ciuwtzdjy0016d9snh9f9fbwb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1408,148 +1566,11 @@
         <a href="https://ftandy.com/2015/09/26/2015-09-26-brainfuck-language/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2015/09/26/2015-09-26-brainfuck-language/">评论</a>
     
 
-        </footer>
+        </footer> -->
     </div>
     
 </article>
 
-
-
-    <article id="post-2015-09-12-" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            
-	
-		<a href="/2015/09/12/2015-09-12-/" itemprop="url">
-            <img src="/assets/images/machinarium.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/09/12/2015-09-12-/">解谜类游戏</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/09/12/2015-09-12-/">
-            <time datetime="2015-09-12T06:28:02.000Z" itemprop="datePublished">2015-09-12</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/game/">game</a>
-    </div>
-
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>解谜类游戏确实有点爽。</p></p>
-            <p class="article-more-link">
-                <a href="/2015/09/12/2015-09-12-/#more">查看更多</a>
-            </p>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="https://ftandy.com/2015/09/12/2015-09-12-/" data-id="ciufodoeq000yw1sn3ks3lsaa" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="https://ftandy.com/2015/09/12/2015-09-12-/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2015/09/12/2015-09-12-/">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
 
 
 
@@ -1565,6 +1586,25 @@
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/10/30/mimi-promise/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/assets/images/promisesa-was-born.jpg)" alt="写一个符合 Promises/A+ 规范并可配合 ES7 async/await 使用的 Promise" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/javascript/">javascript</a></p>
+                            <p class="item-title"><a href="/2016/10/30/mimi-promise/" class="title">写一个符合 Promises/A+ 规范并可配合 ES7 async/await 使用的 Promise</a></p>
+                            <p class="item-date"><time datetime="2016-10-30T14:11:46.000Z" itemprop="datePublished">2016-10-30</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1642,25 +1682,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/03/29/2016-03-29-HTTPS/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/assets/images/https.jpg)" alt="理解 HTTPS 的安全性" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/https/">https</a></p>
-                            <p class="item-title"><a href="/2016/03/29/2016-03-29-HTTPS/" class="title">理解 HTTPS 的安全性</a></p>
-                            <p class="item-date"><time datetime="2016-03-29T13:36:44.000Z" itemprop="datePublished">2016-03-29</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1670,7 +1691,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/bitcoin/">bitcoin</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dota/">dota</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/game/">game</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/poem/">poem</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-language/">programming_language</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rick-and-morty/">rick and morty</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ruby/">ruby</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vagrant-docker/">vagrant_docker</a><span class="category-list-count">2</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/bitcoin/">bitcoin</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dota/">dota</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/game/">game</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/poem/">poem</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-language/">programming_language</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rick-and-morty/">rick and morty</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ruby/">ruby</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vagrant-docker/">vagrant_docker</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -1679,7 +1700,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 

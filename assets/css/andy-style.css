@@ -14,8 +14,12 @@ body {
 }
 
 #container {
-  opacity: 0.9;
 }
+
+.highlight {
+  font-size: 18px !important;
+}
+
 .page-number {
   color: #856f6f;
 }
