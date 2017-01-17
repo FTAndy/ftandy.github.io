@@ -152,7 +152,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                27
+                28
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -193,6 +193,146 @@
 
             
             <section id="main">
+    <article id="post-Node-根本就不是什么新东西" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/01/17/Node-根本就不是什么新东西/">Node 根本就不是什么新东西</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/01/17/Node-根本就不是什么新东西/">
+            <time datetime="2017-01-17T14:44:15.000Z" itemprop="datePublished">2017-01-17</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/javascript/">javascript</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>逛 github 看到 uWebSockets 作者 <a href="https://github.com/alexhultman" target="_blank" rel="external">Alex Hultman</a> 写的有关 Node 的话，<br>很有感触。</p>
+<p>第一篇 <a href="https://github.com/alexhultman/The-real-history-of-async-networking" target="_blank" rel="external">The-real-history-of-async-networking</a><br>，讲的是异步编程的历史，然后总结出 Node 并不是新概念，只是一群没有经验程序员的玩具。</p>
+<blockquote>
+<p>From the perspective of a PHP programmer it might be something new, but from the perspective of an experienced C programmer this piece of software is nothing more than a simplification of common (now ancient) async techniques wrapped up in JavaScript for non-experienced programmers to toy with</p>
+</blockquote>
+<p>确实也无可厚非。</p>
+<p>第二篇 <a href="https://github.com/alexhultman/Don-t-bother-counting-those-stars" target="_blank" rel="external">Don-t-bother-counting-those-stars</a>，<br>讲的是低质量的库，假如做了宣传，star 飙升，但是并没有否定这是一个低质量库的现实。而很多高质量的库因为没有宣传，<br>star 少，但是实用。总结为不要看 star 数量而用一个库。</p>
+<blockquote>
+<p>You won’t get many stars with marketing like “We are not the fastest but we are pretty efficient, no wait, we are actually not that fast”. It has to be something like “FEATURING THE FASTEST AND MOST RELIABLE REAL-TIME ENGINE”. Yeah, that one will sell. In fact, this is the marketing of Socket.IO, a project with 28k stars.</p>
+</blockquote>
+<p>确实，最近用到 Socket.io，质量确实不好，而且很久没人维护。</p>
+<p>Node 09 年刚出现的时候被大吹特吹，被贴上异步事件驱动，高并发等标签，入门门槛极低，大量前端都可以跳到 Node<br>写一下。一些无高质量的基础库涌现，库作者会吹 B，而且前端的人很多，这些库 star 数飙升，例如 Socket.io。<br>但是到现在出现了性能低，无人维护等现象。</p>
+<p>估计 Node 要称为下一个 Ruby 了。</p>
+
+        
+        </div>
+        <!-- <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="https://ftandy.com/2017/01/17/Node-根本就不是什么新东西/" data-id="ciy1nld72001mgmsn8p4dkwjf" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="https://ftandy.com/2017/01/17/Node-根本就不是什么新东西/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2017/01/17/Node-根本就不是什么新东西/">评论</a>
+    
+
+        </footer> -->
+    </div>
+    
+</article>
+
+
+
+
     <article id="post-mimi-promise" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -258,7 +398,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/10/30/mimi-promise/" data-id="ciuwtzdkb001sd9snugnv4zmv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/10/30/mimi-promise/" data-id="ciy1nld79001ugmsn7uba8u6q" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -387,7 +527,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/09/11/2016-09-11-理解比特币原理/" data-id="ciuwtzdk9001qd9sn7ccpejkx" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/09/11/2016-09-11-理解比特币原理/" data-id="ciy1nld77001pgmsnkwtmsyep" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -528,7 +668,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/09/10/2016-09-10-论打电竞职业与互联网职业的相同/" data-id="ciuwtzdk6001nd9snh7ru2h5o" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/09/10/2016-09-10-论打电竞职业与互联网职业的相同/" data-id="ciy1nld78001rgmsnkl78jih8" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -661,7 +801,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/05/15/2016-05-15-Sharedb-源码分析/" data-id="ciuwtzdk6001ld9snt28rl68g" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/05/15/2016-05-15-Sharedb-源码分析/" data-id="ciy1nld72001kgmsntnzcybbj" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -800,7 +940,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/05/14/2016-05-14-Ode-on-Solitude/" data-id="ciuwtzdk4001id9sn3ha8pfvb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/05/14/2016-05-14-Ode-on-Solitude/" data-id="ciy1nld70001hgmsns9jig1vj" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -939,7 +1079,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/03/29/2016-03-29-HTTPS/" data-id="ciuwtzdk2001gd9sngpe4a9y0" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/03/29/2016-03-29-HTTPS/" data-id="ciy1nld6z001fgmsnli1chjgk" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1078,7 +1218,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/03/28/2016-03-28-decadent/" data-id="ciuwtzdk1001dd9snj3cth6ru" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/03/28/2016-03-28-decadent/" data-id="ciy1nld6y001cgmsnvp0txzcm" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1217,7 +1357,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2016/02/20/2016-02-20-2015/" data-id="ciuwtzdk1001bd9snlmbgg7qp" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2016/02/20/2016-02-20-2015/" data-id="ciy1nld6y001agmsn0hgx3xmu" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1358,7 +1498,7 @@
 
 </div>
 
-    <a data-url="https://ftandy.com/2015/09/27/2015-09-27-morty/" data-id="ciuwtzdjz0018d9sn9qjtbuux" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/2015/09/27/2015-09-27-morty/" data-id="ciy1nld6w0017gmsn9n7g4bqx" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1437,143 +1577,6 @@
 
 
 
-    <article id="post-2015-09-26-brainfuck-language" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            
-	
-		<a href="/2015/09/26/2015-09-26-brainfuck-language/" itemprop="url">
-            <img src="/assets/images/brainfuck.jpg" class="article-banner" />
-        </a>
-	
-
-
-
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/09/26/2015-09-26-brainfuck-language/">brainfuck language</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/09/26/2015-09-26-brainfuck-language/">
-            <time datetime="2015-09-26T04:50:38.000Z" itemprop="datePublished">2015-09-26</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/programming-language/">programming_language</a>
-    </div>
-
-                        
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            
-        
-        </div>
-        <!-- <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="https://ftandy.com/2015/09/26/2015-09-26-brainfuck-language/" data-id="ciuwtzdjy0016d9snh9f9fbwb" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="https://ftandy.com/2015/09/26/2015-09-26-brainfuck-language/#comments" class="article-comment-link ds-thread-count" data-thread-key="https://ftandy.com/2015/09/26/2015-09-26-brainfuck-language/">评论</a>
-    
-
-        </footer> -->
-    </div>
-    
-</article>
-
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -1586,6 +1589,25 @@
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/01/17/Node-根本就不是什么新东西/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/javascript/">javascript</a></p>
+                            <p class="item-title"><a href="/2017/01/17/Node-根本就不是什么新东西/" class="title">Node 根本就不是什么新东西</a></p>
+                            <p class="item-date"><time datetime="2017-01-17T14:44:15.000Z" itemprop="datePublished">2017-01-17</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1663,25 +1685,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/05/14/2016-05-14-Ode-on-Solitude/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/poem/">poem</a></p>
-                            <p class="item-title"><a href="/2016/05/14/2016-05-14-Ode-on-Solitude/" class="title">Ode on Solitude</a></p>
-                            <p class="item-date"><time datetime="2016-05-14T06:36:06.000Z" itemprop="datePublished">2016-05-14</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1691,7 +1694,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/bitcoin/">bitcoin</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dota/">dota</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/game/">game</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/poem/">poem</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-language/">programming_language</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rick-and-morty/">rick and morty</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ruby/">ruby</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vagrant-docker/">vagrant_docker</a><span class="category-list-count">2</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/bitcoin/">bitcoin</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dota/">dota</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/game/">game</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/https/">https</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/leetcode/">leetcode</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/poem/">poem</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/programming-language/">programming_language</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rick-and-morty/">rick and morty</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ruby/">ruby</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vagrant-docker/">vagrant_docker</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -1700,7 +1703,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">四月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1714,7 +1717,7 @@
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2016 FTAndy<br>
+            &copy; 2017 FTAndy<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>
