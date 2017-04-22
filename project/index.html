@@ -244,7 +244,7 @@ Mimi-PromiseJust a Promises/A+ spec implementation Project. Re">
 
 </div>
 
-    <a data-url="https://ftandy.com/project/index.html" data-id="cj0tpo88e000es9sn82oian6r" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://ftandy.com/project/index.html" data-id="cj1ku7zd1000cbpsnhsmvo53j" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -552,5 +552,20 @@ Mimi-PromiseJust a Promises/A+ spec implementation Project. Re">
     <div class="backgroung-image">
       <img src="/assets/images/rick_and_morty/3.jpg">
     </div>
+    <div class="comments"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+      var gitment = new Gitment({
+        id: '', // 可选。默认为 location.href
+        owner: 'FTAndy',
+        repo: 'https://github.com/FTAndy/FTAndy.github.io',
+        oauth: {
+          client_id: 'c7cad6cd300e8ee49f6a',
+          client_secret: '5288a7c4fe946f3efa6ddbdb638020fff480ffee',
+        },
+      })
+      gitment.render('comments')
+    </script>
 </body>
 </html>
