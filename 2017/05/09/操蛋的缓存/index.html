@@ -4,14 +4,21 @@
     <meta charset="utf-8">
     <link rel='stylesheet' href='/assets/css/andy-style.css'>
     
-    <title>分类: poem | FTAndy</title>
+    <title>操蛋的浏览器缓存 | FTAndy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="FTAndy">
-<meta property="og:url" content="http://ftandy.com/categories/poem/index.html">
+    <meta name="description" content="实际上我并不想写这么一篇关于浏览器缓存的文章，但是浏览器缓存太烦了，实际中经常会遇到，面试也经常问的，所以把关键的几个点记录一下。
+缓存其实主要是服务器的锅，但是浏览器也可以做一点微小的工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操蛋的浏览器缓存">
+<meta property="og:url" content="http://ftandy.com/2017/05/09/操蛋的缓存/index.html">
 <meta property="og:site_name" content="FTAndy">
+<meta property="og:description" content="实际上我并不想写这么一篇关于浏览器缓存的文章，但是浏览器缓存太烦了，实际中经常会遇到，面试也经常问的，所以把关键的几个点记录一下。
+缓存其实主要是服务器的锅，但是浏览器也可以做一点微小的工作。">
+<meta property="og:updated_time" content="2017-05-09T15:46:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FTAndy">
+<meta name="twitter:title" content="操蛋的浏览器缓存">
+<meta name="twitter:description" content="实际上我并不想写这么一篇关于浏览器缓存的文章，但是浏览器缓存太烦了，实际中经常会遇到，面试也经常问的，所以把关键的几个点记录一下。
+缓存其实主要是服务器的锅，但是浏览器也可以做一点微小的工作。">
     
 
     
@@ -192,45 +199,199 @@
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">poem</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-操蛋的缓存" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2016/05/14/2016-05-14-Ode-on-Solitude/">Ode on Solitude</a>
+        <h1 class="article-title" itemprop="name">
+            操蛋的浏览器缓存
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/05/14/2016-05-14-Ode-on-Solitude/">
-            <time datetime="2016-05-14T06:36:06.000Z" itemprop="datePublished">2016-05-14</time>
+        <a href="/2017/05/09/操蛋的缓存/">
+            <time datetime="2017-05-09T04:58:21.000Z" itemprop="datePublished">2017-05-09</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/poem/">poem</a>
-    </div>
+                        
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>实际上我并不想写这么一篇关于浏览器缓存的文章，但是浏览器缓存太烦了，实际中经常会遇到，面试也经常问的，所以把关键的几个点记录一下。</p>
+<p>缓存其实主要是服务器的锅，但是浏览器也可以做一点微小的工作。</p>
+<a id="more"></a>
+<h3 id="强缓存（服务器的锅）"><a href="#强缓存（服务器的锅）" class="headerlink" title="强缓存（服务器的锅）"></a>强缓存（服务器的锅）</h3><p>假如想要缓存，也就是对于同一个资源文件 index.html，在浏览器下一次访问的时候不要网络请求，直接从浏览器缓存读取。那么首次访问该 index.html 文件时，服务器有两个 response 头可以设置：Cache-Control，Expires。由于 Cache-Control 会覆盖 Expires，而且 Expires 会有服务器和浏览器时间不统一的问题，一般都会直接看 Cache-Control。而且一般 Cache-Control 都只会设置 max-age，其他乱七八糟的 public，private 等等，遇到的时候再看文档。max-age 就是从返回时间开始，浏览器可以对该资源缓存的时间。所以，以后浏览器在这段时间访问该资源，就会直接从浏览器缓存获取，不会发一个 request，这段时间不会有协商缓存的事。但是，过了这段时间之后，就要从新发送 request，然后才有了协商缓存。</p>
+<h3 id="协商缓存（这也是服务器的锅）"><a href="#协商缓存（这也是服务器的锅）" class="headerlink" title="协商缓存（这也是服务器的锅）"></a>协商缓存（这也是服务器的锅）</h3><p>强缓存时间过了之后，会向服务器发一个 request，然后再根据服务器的 response 来判断该资源是否需要获取新的，还是说按照老方法直接从本地读取。</p>
+<p>协商缓存牵涉的 request 和 response 头有点多，下面分开讲。</p>
+<h4 id="Etag（这还是服务器的锅）"><a href="#Etag（这还是服务器的锅）" class="headerlink" title="Etag（这还是服务器的锅）"></a>Etag（这还是服务器的锅）</h4><p>服务器第一次返回的资源的时候，很有可能把这个 Etag 带上，然后服务器就记下这个资源的 Etag。等到强缓存失效的时候，浏览器会向服务器发送 request 会带上 If-None-Match：Etag。然后服务器会根据这个 Etag 对比现在这个资源文件的 Etag，看是否相同，同则返回 304，然后浏览器拿到 304 状态码会继续读取本地缓存。不同则返回最新的文件。</p>
+<p>Etag 也是覆盖 Last-Modified，所以还是看 Etag。</p>
+<h4 id="Last-Modified（这还是浏览器的锅啊，前端不背）"><a href="#Last-Modified（这还是浏览器的锅啊，前端不背）" class="headerlink" title="Last-Modified（这还是浏览器的锅啊，前端不背）"></a>Last-Modified（这还是浏览器的锅啊，前端不背）</h4><p>这也是服务器第一次返回的时候带上的，然后浏览器记下，等强缓存失效之后用 If-Modified-Since: Last-Modified 把这个带上，服务器在对比现在资源的 Last-Modified，然后判断是否相同，同则返回 304，浏览器再读取本地缓存。不同则返回最新的文件。</p>
+<h3 id="那前端可以干什么？"><a href="#那前端可以干什么？" class="headerlink" title="那前端可以干什么？"></a>那前端可以干什么？</h3><p>假如服务器没有把 response header 设置好，首先你可以直接去找后端骂他一顿，然后教他这么返回 response header。</p>
+<p>假如他不屌你，前端也可以干点事情。协商缓存是干不掉了，要干必须设置 response header。假如不想要强缓存，可以设置 meta 标签：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, no-store, must-revalidate"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>或者获取资源的时候加上时间戳，什么 index.html?t=时间戳。但是一般 index.html 文件都是固定了的，不可能加时间戳，可以写一个 redirect.html 的页面，专门加时间戳跳转。不过加这个 redirect.html 页面的时候记得加 meta，不然 redirect.html 也被缓存了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>缓存也没想象那么复杂，要根据业务场景对应吧。</p>
 
-                    
-                </div>
-            </div>
+        
         </div>
-    
+        <!-- <footer class="article-footer">
+            <div class="share-container">
+
+
+
 </div>
+
+    <a data-url="http://ftandy.com/2017/05/09/操蛋的缓存/" data-id="cj2hq7vh5001om9sn4gudizwm" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://ftandy.com/2017/05/09/操蛋的缓存/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://ftandy.com/2017/05/09/操蛋的缓存/">评论</a>
+    
+
+        </footer> -->
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/05/05/聊一聊 Stand Up Comedy/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">聊一聊 Stand Up Comedy</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/05/09/操蛋的缓存/" data-title="操蛋的浏览器缓存" data-url="http://ftandy.com/2017/05/09/操蛋的缓存/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+
 </section>
             
                 <aside id="sidebar">
